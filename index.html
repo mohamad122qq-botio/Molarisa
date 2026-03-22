@@ -3,12 +3,811 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>LensMart - Professional Photography</title>
-  <!-- Bootstrap CSS -->
-  <link
-    href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
-    rel="stylesheet"
-  />
-  <!-- Font Awesome for icons -->
-  <link
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/
+  <title>Velora Studio | Professional Photography</title>
+  <meta name="description" content="Professional photography for products, restaurants, cafés, interiors, and brands." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#0b0d12;
+      --bg-soft:#11141b;
+      --card:rgba(255,255,255,0.06);
+      --line:rgba(255,255,255,0.12);
+      --text:#ffffff;
+      --muted:rgba(255,255,255,0.72);
+      --accent:#d7b98e;
+      --accent-2:#9b7b53;
+      --shadow:0 20px 60px rgba(0,0,0,0.35);
+      --radius:24px;
+      --max:1200px;
+    }
+
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    html{
+      scroll-behavior:smooth;
+    }
+
+    body{
+      font-family:'Inter',sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(215,185,142,0.14), transparent 30%),
+        radial-gradient(circle at top right, rgba(255,255,255,0.08), transparent 20%),
+        linear-gradient(180deg, #0a0c10 0%, #0e1117 100%);
+      color:var(--text);
+      line-height:1.6;
+    }
+
+    a{
+      color:inherit;
+      text-decoration:none;
+    }
+
+    img{
+      max-width:100%;
+      display:block;
+    }
+
+    .container{
+      width:min(92%, var(--max));
+      margin:auto;
+    }
+
+    .topbar{
+      position:sticky;
+      top:0;
+      z-index:1000;
+      backdrop-filter:blur(16px);
+      background:rgba(10,12,16,0.65);
+      border-bottom:1px solid rgba(255,255,255,0.06);
+    }
+
+    .nav{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 0;
+    }
+
+    .logo{
+      font-size:1.2rem;
+      font-weight:800;
+      letter-spacing:1px;
+    }
+
+    .logo span{
+      color:var(--accent);
+    }
+
+    .nav-links{
+      display:flex;
+      gap:28px;
+      align-items:center;
+    }
+
+    .nav-links a{
+      color:var(--muted);
+      font-size:0.95rem;
+      transition:0.3s;
+    }
+
+    .nav-links a:hover{
+      color:var(--text);
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding:14px 22px;
+      border-radius:999px;
+      border:1px solid transparent;
+      font-weight:600;
+      transition:0.3s ease;
+      cursor:pointer;
+    }
+
+    .btn-primary{
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#111;
+      box-shadow:0 10px 30px rgba(215,185,142,0.25);
+    }
+
+    .btn-primary:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 40px rgba(215,185,142,0.32);
+    }
+
+    .btn-secondary{
+      background:rgba(255,255,255,0.04);
+      border-color:rgba(255,255,255,0.1);
+      color:var(--text);
+    }
+
+    .btn-secondary:hover{
+      background:rgba(255,255,255,0.08);
+    }
+
+    .hero{
+      padding:90px 0 60px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:34px;
+      align-items:center;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 14px;
+      border-radius:999px;
+      background:rgba(255,255,255,0.05);
+      border:1px solid rgba(255,255,255,0.08);
+      color:var(--muted);
+      font-size:0.85rem;
+      margin-bottom:20px;
+    }
+
+    .hero h1{
+      font-size:clamp(2.6rem, 7vw, 5.4rem);
+      line-height:0.96;
+      letter-spacing:-2px;
+      margin-bottom:20px;
+    }
+
+    .hero p{
+      color:var(--muted);
+      font-size:1.08rem;
+      max-width:650px;
+      margin-bottom:28px;
+    }
+
+    .hero-actions{
+      display:flex;
+      flex-wrap:wrap;
+      gap:14px;
+      margin-bottom:30px;
+    }
+
+    .hero-stats{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:14px;
+      margin-top:20px;
+    }
+
+    .stat{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:20px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+
+    .stat h3{
+      font-size:1.6rem;
+      margin-bottom:4px;
+    }
+
+    .stat p{
+      margin:0;
+      font-size:0.9rem;
+      color:var(--muted);
+    }
+
+    .hero-visual{
+      position:relative;
+    }
+
+    .main-visual{
+      border-radius:32px;
+      min-height:620px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:var(--shadow);
+      background:
+        linear-gradient(rgba(0,0,0,0.18), rgba(0,0,0,0.35)),
+        url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+    }
+
+    .floating-card{
+      position:absolute;
+      background:rgba(16,19,25,0.78);
+      border:1px solid rgba(255,255,255,0.08);
+      backdrop-filter:blur(12px);
+      border-radius:20px;
+      padding:16px 18px;
+      box-shadow:var(--shadow);
+    }
+
+    .floating-card.small{
+      right:-18px;
+      top:34px;
+      width:220px;
+    }
+
+    .floating-card.bottom{
+      left:-18px;
+      bottom:24px;
+      width:240px;
+    }
+
+    .floating-card h4{
+      font-size:0.95rem;
+      margin-bottom:6px;
+    }
+
+    .floating-card p{
+      font-size:0.86rem;
+      color:var(--muted);
+    }
+
+    .section{
+      padding:90px 0;
+    }
+
+    .section-header{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      align-items:end;
+      margin-bottom:34px;
+    }
+
+    .section-header h2{
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1;
+      letter-spacing:-1px;
+      margin-bottom:12px;
+    }
+
+    .section-header p{
+      color:var(--muted);
+      max-width:680px;
+    }
+
+    .services-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:20px;
+    }
+
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:26px;
+      padding:24px;
+      box-shadow:var(--shadow);
+      transition:0.35s ease;
+    }
+
+    .card:hover{
+      transform:translateY(-6px);
+      border-color:rgba(215,185,142,0.35);
+    }
+
+    .icon{
+      width:54px;
+      height:54px;
+      border-radius:18px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg, rgba(215,185,142,0.24), rgba(155,123,83,0.18));
+      border:1px solid rgba(215,185,142,0.25);
+      font-size:1.4rem;
+      margin-bottom:18px;
+    }
+
+    .card h3{
+      font-size:1.15rem;
+      margin-bottom:10px;
+    }
+
+    .card p{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    .portfolio-grid{
+      display:grid;
+      grid-template-columns:1.2fr 0.8fr 0.8fr;
+      grid-template-rows:280px 280px;
+      gap:18px;
+    }
+
+    .portfolio-item{
+      position:relative;
+      border-radius:28px;
+      overflow:hidden;
+      border:1px solid rgba(255,255,255,0.08);
+      box-shadow:var(--shadow);
+      min-height:220px;
+    }
+
+    .portfolio-item::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, transparent 30%, rgba(0,0,0,0.65) 100%);
+    }
+
+    .portfolio-item .label{
+      position:absolute;
+      left:20px;
+      bottom:18px;
+      z-index:2;
+    }
+
+    .portfolio-item h4{
+      font-size:1.15rem;
+      margin-bottom:4px;
+    }
+
+    .portfolio-item p{
+      color:rgba(255,255,255,0.8);
+      font-size:0.9rem;
+    }
+
+    .item-1{
+      grid-row:1 / 3;
+      background:url('https://images.unsplash.com/photo-1556740749-887f6717d7e4?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+    }
+
+    .item-2{
+      background:url('https://images.unsplash.com/photo-1514933651103-005eec06c04b?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+    }
+
+    .item-3{
+      background:url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+    }
+
+    .item-4{
+      background:url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+    }
+
+    .item-5{
+      background:url('https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80') center/cover no-repeat;
+    }
+
+    .process-grid{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:18px;
+    }
+
+    .step{
+      position:relative;
+      padding:26px;
+      border-radius:24px;
+      background:var(--card);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow);
+    }
+
+    .step-number{
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:linear-gradient(135deg, var(--accent), var(--accent-2));
+      color:#111;
+      font-weight:800;
+      margin-bottom:18px;
+    }
+
+    .step h3{
+      margin-bottom:8px;
+      font-size:1.05rem;
+    }
+
+    .step p{
+      color:var(--muted);
+      font-size:0.94rem;
+    }
+
+    .cta{
+      padding:90px 0;
+    }
+
+    .cta-box{
+      border-radius:34px;
+      padding:44px;
+      background:
+        radial-gradient(circle at top left, rgba(215,185,142,0.18), transparent 26%),
+        linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.03));
+      border:1px solid rgba(255,255,255,0.1);
+      box-shadow:var(--shadow);
+      display:grid;
+      grid-template-columns:1.1fr 0.9fr;
+      gap:24px;
+      align-items:center;
+    }
+
+    .cta h2{
+      font-size:clamp(2rem, 4vw, 3rem);
+      line-height:1;
+      margin-bottom:14px;
+    }
+
+    .cta p{
+      color:var(--muted);
+      max-width:620px;
+    }
+
+    .contact-card{
+      background:rgba(255,255,255,0.04);
+      border:1px solid rgba(255,255,255,0.1);
+      border-radius:24px;
+      padding:24px;
+    }
+
+    .contact-card div{
+      padding:14px 0;
+      border-bottom:1px solid rgba(255,255,255,0.08);
+    }
+
+    .contact-card div:last-child{
+      border-bottom:none;
+    }
+
+    .contact-card strong{
+      display:block;
+      margin-bottom:4px;
+      font-size:0.95rem;
+    }
+
+    .contact-card span{
+      color:var(--muted);
+      font-size:0.95rem;
+    }
+
+    footer{
+      padding:28px 0 40px;
+      border-top:1px solid rgba(255,255,255,0.07);
+      color:var(--muted);
+    }
+
+    .footer-row{
+      display:flex;
+      justify-content:space-between;
+      gap:20px;
+      flex-wrap:wrap;
+    }
+
+    .reveal{
+      opacity:0;
+      transform:translateY(30px);
+      transition:all 0.8s ease;
+    }
+
+    .reveal.active{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    @media (max-width: 1100px){
+      .hero-grid,
+      .cta-box{
+        grid-template-columns:1fr;
+      }
+
+      .services-grid,
+      .process-grid{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .portfolio-grid{
+        grid-template-columns:1fr 1fr;
+        grid-template-rows:auto;
+      }
+
+      .item-1{
+        grid-row:auto;
+        min-height:300px;
+      }
+
+      .main-visual{
+        min-height:500px;
+      }
+
+      .floating-card.small,
+      .floating-card.bottom{
+        position:static;
+        width:100%;
+        margin-top:14px;
+      }
+    }
+
+    @media (max-width: 720px){
+      .nav{
+        flex-direction:column;
+        gap:14px;
+      }
+
+      .nav-links{
+        flex-wrap:wrap;
+        justify-content:center;
+        gap:16px;
+      }
+
+      .hero{
+        padding-top:50px;
+      }
+
+      .hero-stats,
+      .services-grid,
+      .process-grid,
+      .portfolio-grid{
+        grid-template-columns:1fr;
+      }
+
+      .section-header{
+        flex-direction:column;
+        align-items:start;
+      }
+
+      .cta-box{
+        padding:28px;
+      }
+
+      .main-visual{
+        min-height:420px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="container nav">
+      <a href="#" class="logo">VELORA <span>STUDIO</span></a>
+
+      <nav class="nav-links">
+        <a href="#services">Services</a>
+        <a href="#portfolio">Portfolio</a>
+        <a href="#process">Process</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="container hero-grid">
+      <div class="reveal">
+        <div class="badge">Creative Visual Content for Brands & Businesses</div>
+        <h1>Photography that makes your brand look premium.</h1>
+        <p>
+          Professional photo content for restaurants, cafés, shops, products, interiors, and social media.
+          Clean visuals, strong storytelling, and a modern style that helps businesses attract attention and sell better.
+        </p>
+
+        <div class="hero-actions">
+          <a href="#contact" class="btn btn-primary">Book a Session</a>
+          <a href="#portfolio" class="btn btn-secondary">View Portfolio</a>
+        </div>
+
+        <div class="hero-stats">
+          <div class="stat">
+            <h3>100+</h3>
+            <p>Creative shots delivered</p>
+          </div>
+          <div class="stat">
+            <h3>4K</h3>
+            <p>High-quality edited images</p>
+          </div>
+          <div class="stat">
+            <h3>24h</h3>
+            <p>Fast response to inquiries</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual reveal">
+        <div class="main-visual"></div>
+
+        <div class="floating-card small">
+          <h4>Brand-Focused Results</h4>
+          <p>Photos created to elevate the image of your business online and in ads.</p>
+        </div>
+
+        <div class="floating-card bottom">
+          <h4>Products • Restaurants • Interiors</h4>
+          <p>One studio style for multiple business needs with a polished premium look.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="services" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <h2>Services</h2>
+          <p>Everything you need to present your business professionally across Instagram, websites, ads, menus, and online stores.</p>
+        </div>
+      </div>
+
+      <div class="services-grid">
+        <div class="card reveal">
+          <div class="icon">📦</div>
+          <h3>Product Photography</h3>
+          <p>Clean, premium visuals for cosmetics, food, accessories, fashion items, and retail products.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon">🍽️</div>
+          <h3>Restaurant Photography</h3>
+          <p>Hero shots for dishes, drinks, desserts, and menu visuals that make customers want to order.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon">🏢</div>
+          <h3>Business & Interior Shots</h3>
+          <p>Show your atmosphere, design, and details with elegant images of your space and brand identity.</p>
+        </div>
+
+        <div class="card reveal">
+          <div class="icon">📱</div>
+          <h3>Social Media Content</h3>
+          <p>Modern image sets designed for Instagram posts, stories, reels covers, and paid campaigns.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="portfolio" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <h2>Selected Work</h2>
+          <p>You can replace these sample images later with your own photos after you start building your real portfolio.</p>
+        </div>
+      </div>
+
+      <div class="portfolio-grid">
+        <div class="portfolio-item item-1 reveal">
+          <div class="label">
+            <h4>Signature Brand Shoot</h4>
+            <p>Premium visual storytelling</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item item-2 reveal">
+          <div class="label">
+            <h4>Restaurant Mood</h4>
+            <p>Interior & ambience</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item item-3 reveal">
+          <div class="label">
+            <h4>Food Styling</h4>
+            <p>Clean editorial look</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item item-4 reveal">
+          <div class="label">
+            <h4>Space Presentation</h4>
+            <p>Visual identity for places</p>
+          </div>
+        </div>
+
+        <div class="portfolio-item item-5 reveal">
+          <div class="label">
+            <h4>Product Showcase</h4>
+            <p>Sharp, modern, commercial</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="process" class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div>
+          <h2>How it works</h2>
+          <p>A simple professional workflow that makes booking easy for clients and keeps your process clear.</p>
+        </div>
+      </div>
+
+      <div class="process-grid">
+        <div class="step reveal">
+          <div class="step-number">1</div>
+          <h3>Inquiry</h3>
+          <p>The client contacts you with the business type, products, location, and desired style.</p>
+        </div>
+
+        <div class="step reveal">
+          <div class="step-number">2</div>
+          <h3>Planning</h3>
+          <p>You define the visual mood, shot list, timing, and what content the client needs.</p>
+        </div>
+
+        <div class="step reveal">
+          <div class="step-number">3</div>
+          <h3>Shooting Day</h3>
+          <p>You capture polished visuals on-site or in a product setup with attention to detail.</p>
+        </div>
+
+        <div class="step reveal">
+          <div class="step-number">4</div>
+          <h3>Delivery</h3>
+          <p>Edited high-quality images are delivered ready for social media, websites, or ads.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="cta">
+    <div class="container">
+      <div class="cta-box reveal">
+        <div>
+          <h2>Let’s create visuals your customers will remember.</h2>
+          <p>
+            Whether you need product photography, restaurant images, or branded business content,
+            this studio is ready to help you present your business in a modern professional way.
+          </p>
+          <br>
+          <a href="https://wa.me/1234567890" class="btn btn-primary">Chat on WhatsApp</a>
+        </div>
+
+        <div class="contact-card">
+          <div>
+            <strong>Email</strong>
+            <span>your@email.com</span>
+          </div>
+          <div>
+            <strong>Instagram</strong>
+            <span>@velorastudio</span>
+          </div>
+          <div>
+            <strong>Location</strong>
+            <span>Your City</span>
+          </div>
+          <div>
+            <strong>Availability</strong>
+            <span>Bookings open for brands, restaurants, and local businesses</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <div class="container footer-row">
+      <p>© 2026 Velora Studio. All rights reserved.</p>
+      <p>Designed for modern photography brands.</p>
+    </div>
+  </footer>
+
+  <script>
+    const reveals = document.querySelectorAll('.reveal');
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('active');
+        }
+      });
+    }, { threshold: 0.15 });
+
+    reveals.forEach(item => observer.observe(item));
+  </script>
+</body>
+</html>
